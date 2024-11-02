@@ -1,0 +1,78 @@
+services:
+  elasticsearch:
+    image: elasticsearch:8.15.3
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - isa-network
+
+  logstash:
+    image: logstash:8.15.3
+    container_name: logstash
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5044:5044"
+    volumes:
+      - ./conf.d/logstash/conf/logstash.conf:/usr/share/logstash/config/logstash.conf
+    networks:
+      - isa-network
+
+  kibana:
+    image: kibana:8.15.3
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - isa-network
+    volumes:
+      - ./conf.d/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+
+  fluentd:
+    image: bitnami/fluentd
+    container_name: fluentd
+    depends_on:
+      - elasticsearch
+    environment:
+      FLUENT_ELASTICSEARCH_HOST: elasticsearch
+      FLUENT_ELASTICSEARCH_PORT: 9200
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - ./conf.d/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: jenkins
+    user: root
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - isa-network
+
+volumes:
+  es_data:
+    driver: local
+  jenkins_home:
+    driver: local
+
+networks:
+  isa-network:
+    driver: bridge
