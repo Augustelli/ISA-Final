@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Iniciar Sesión</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <form (submit)="login()">
+              <ion-item>
+                <ion-label position="floating">Correo Electrónico</ion-label>
+                <ion-input type="email" required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Contraseña</ion-label>
+                <ion-input type="password" required></ion-input>
+              </ion-item>
+              <ion-button expand="full" type="submit" style="margin-top: 20px;">Ingresar</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

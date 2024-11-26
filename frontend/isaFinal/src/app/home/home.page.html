@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Contador
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Contador</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+    <h1 style="font-size: 4rem; margin-bottom: 2rem;">{{ counter }}</h1>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto">
+          <ion-button expand="block" color="danger" (click)="modifyCounter(-10)">-10</ion-button>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-button expand="block" color="warning" (click)="modifyCounter(-1)">-1</ion-button>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-button expand="block" color="medium" (click)="resetCounter()">Reset</ion-button>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-button expand="block" color="success" (click)="modifyCounter(1)">+1</ion-button>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-button expand="block" color="primary" (click)="modifyCounter(10)">+10</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

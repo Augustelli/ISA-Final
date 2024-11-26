@@ -1,0 +1,7 @@
+{
+  "name": "isaFinal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
