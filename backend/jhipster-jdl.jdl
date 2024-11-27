@@ -1,0 +1,5 @@
+entity Contador {
+	usuarioId Integer
+    contadorValor Integer
+}
+

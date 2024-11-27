@@ -1,0 +1,19 @@
+{
+  "annotations": {
+    "changelogDate": "20241127142918"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "usuarioId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "contadorValor",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "Contador",
+  "relationships": [],
+  "searchEngine": "no"
+}
