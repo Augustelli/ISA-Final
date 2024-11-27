@@ -17,7 +17,6 @@ export class RegisterComponent  implements OnInit {
   constructor(private router: Router) {}
 
   register() {
-    // Lógica del registro
     this.router.navigate(['/login']);
   }
 
