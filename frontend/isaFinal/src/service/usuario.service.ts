@@ -9,10 +9,6 @@ export class UsuarioService {
   private apiUrl = 'http://localhost:8080/api/authenticate';
   private _httpClient = inject(HttpClient)
   
-  private headers_http = new HttpHeaders({
-    'Authorization': 'Bearer '
-  });
-
   constructor() {}
 
   login(credentials: { username: string; password: string; rememberMe: any }): Observable<any> {
@@ -20,8 +16,7 @@ export class UsuarioService {
     
     return this._httpClient.post<any>(
       this.apiUrl,
-      credentials,
-      //{ headers: this.headers_http }
+      credentials
     );
   }
 }

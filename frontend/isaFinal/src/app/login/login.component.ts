@@ -47,8 +47,11 @@ export class LoginComponent {
     
     this.userService.login(this.credentials).pipe(
       tap(response => {
-        if (response.status === 200) {
-          const token = response.body.id_token;
+        console.log("RESPUESTA SERVICIO AUTH", response, response.body);
+        
+        if (response.id_token != null) {
+          console.log("Autenticación exitosa");
+          const token = response.id_token;
           localStorage.setItem('jwt', token);
           this.router.navigate(['/home']);
         }

@@ -30,4 +30,13 @@
 
 ion-button {
   margin: 0.5rem;
+  text-transform: none;
+}
+ion-row{
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+ion-col{
+  padding: 0;
 }
