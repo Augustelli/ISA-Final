@@ -46,8 +46,8 @@ export class LoginComponent {
     console.log("CREDENCIALTAS", this.credentials);
     
     this.userService.login(this.credentials).pipe(
-      tap(response => {
-        console.log("RESPUESTA SERVICIO AUTH", response, response.body);
+      tap(response => { 
+        console.log("RESPUESTA SERVICIO AUTH", response, response.id_token);
         
         if (response.id_token != null) {
           console.log("Autenticación exitosa");

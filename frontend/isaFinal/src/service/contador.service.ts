@@ -23,6 +23,17 @@ export class ContadorService {
     return this._httpClient.get<any>(
       this.apiUrl,
       { headers: this.headers_http }
+
+    )
+  }
+
+  addValueToCounter(value: number): Observable<any> {
+    console.log("Añadiendo valor al contador", value)
+    let url = `${this.apiUrl}?incremento=${value}`;
+    return this._httpClient.post<any>(
+      url,
+      {},
+      { headers: this.headers_http }
     )
   }
 }

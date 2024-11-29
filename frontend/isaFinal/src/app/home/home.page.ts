@@ -12,20 +12,34 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
-  providers : [ContadorService]
+  providers: [ContadorService]
 })
 export class HomePage {
   counter: number = 0;
-  customIncrement: number = 0;
+  customValue: number = 12;
+
+
 
   private _contadorService = inject(ContadorService)
   constructor() { }
 
-  modifyCounter(value: number) {
-    this.counter += value;
+  modifyCounter(value: number): void {
+    this._contadorService.addValueToCounter(value).pipe(
+      tap(result => {
+        console.log("RESULTADO DE INCREMENTAR CONTADOR", result);
+        if (result && result == 200) {
+          this.counter += value;
+        }
+      }),
+      catchError(error => {
+        console.error('Error adding value to counter:', error);
+        return of(null);
+      })
+    ).subscribe();
   }
 
   resetCounter() {
+    this.modifyCounter(0)
     this.counter = 0;
   }
 

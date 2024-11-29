@@ -18,19 +18,29 @@
     <ion-grid>
       <ion-row>
         <ion-col size="auto">
-          <ion-button expand="block" color="danger" (click)="modifyCounter(-10)"size="small">-10</ion-button>
+          <ion-button expand="block" color="danger" (click)="modifyCounter(-10)">-10</ion-button>
         </ion-col>
         <ion-col size="auto">
           <ion-button expand="block" color="warning" (click)="modifyCounter(-1)">-1</ion-button>
         </ion-col>
         <ion-col size="auto">
-          <ion-button expand="block" color="medium" fill= "outline"(click)="resetCounter()">Reset</ion-button>
+          <ion-button expand="block" color="medium" (click)="resetCounter()">Reset</ion-button>
         </ion-col>
         <ion-col size="auto">
           <ion-button expand="block" color="success" (click)="modifyCounter(1)">+1</ion-button>
         </ion-col>
         <ion-col size="auto">
-          <ion-button expand="block" color="primary" (click)="modifyCounter(10)" size="small">+10</ion-button>
+          <ion-button expand="block" color="primary" (click)="modifyCounter(10)">+10</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row style="justify-content: center">
+        <ion-col size="auto">
+          <ion-button expand="block" color="medium" (click)="modifyCounter(customValue)" size="small">{{customValue}}</ion-button>
+
+          <ion-item>
+            <ion-label position="floating">Valor Personalizado</ion-label>
+            <ion-input type="number" [(ngModel)]="customValue"></ion-input>
+          </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
