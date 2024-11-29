@@ -35,12 +35,11 @@
       </ion-row>
       <ion-row style="justify-content: center">
         <ion-col size="auto">
-          <ion-button expand="block" color="medium" (click)="modifyCounter(customValue)" size="small">{{customValue}}</ion-button>
-
           <ion-item>
             <ion-label position="floating">Valor Personalizado</ion-label>
             <ion-input type="number" [(ngModel)]="customValue"></ion-input>
           </ion-item>
+          <ion-button expand="block" color="medium" (click)="modifyCounter(customValue)" size="small">{{customValue}}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

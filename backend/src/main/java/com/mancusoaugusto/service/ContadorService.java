@@ -39,6 +39,9 @@ public class ContadorService {
         Optional<Contador> optContador = obtenerContadorUsuario(user);
         if (optContador.isPresent()) {
             Contador nuevoContador = optContador.get();
+            if (valor == 0){
+                nuevoContador.setContadorValor( valor);
+            }
             nuevoContador.setContadorValor( nuevoContador.getContadorValor() + valor);
             this.contadorRepository.save(nuevoContador);
         } else {

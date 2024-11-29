@@ -51,8 +51,9 @@ public class ContadorController {
     @PostMapping
     public ResponseEntity<Integer> incrementarContador(
         @RequestHeader("Authorization") String token,
-        @RequestParam(value = "incremento", defaultValue = "1") Integer incremento
+        @RequestParam(defaultValue = "1") Integer incremento
     ) throws Exception {
+        LOG.info("VALOR RECIBIDO:" + incremento.toString());
         Optional<User> optUser = userService.getUserWithAuthoritiesByLogin(obtenerSubDeToken(token.substring(7)));
         if (optUser.isPresent()) {
             this.contadorService.guardarValorContador(optUser.get(), incremento);

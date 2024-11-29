@@ -16,7 +16,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class HomePage {
   counter: number = 0;
-  customValue: number = 12;
+  customValue: number = 91218;
 
 
 
