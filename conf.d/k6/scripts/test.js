@@ -13,14 +13,36 @@ export let options = {
 };
 
 export default function () {
-  // Reemplaza 'http://jhipster-app:8080/api/endpoint' con el endpoint real de tu aplicación JHipster
-  let res = http.get('http://isabe:8080/api/endpoint');
-  check(res, {
-    'status was 200': (r) => r.status == 200,
+  let loginRes = http.post('http://isabe:8080/api/authenticate', {
+    username: 'admin',
+    password: 'admin',
+    rememberMe: false
   });
+  check(loginRes, {
+    'login status was 200': (r) => r.status == 200,
+  });
+  let idToken = loginRes.json('id_token');
+  console.log(`Generated log entry for login at ${new Date().toISOString()}`);
+  logCounter.add(1);
 
-  // Generar un log de prueba
-  console.log(`Generated log entry at ${new Date().toISOString()}`);
+  let headers = {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+  };
+
+  let getContadorRes = http.get('http://isabe:8080/api/getContador', headers);
+  check(getContadorRes, {
+    'getContador status was 200': (r) => r.status == 200,
+  });
+  console.log(`Generated log entry for getContador at ${new Date().toISOString()}`);
+  logCounter.add(1);
+
+  let contadorPostRes = http.post('http://isabe:8080/api/contadorPost', { value: 1 }, headers);
+  check(contadorPostRes, {
+    'contadorPost status was 200': (r) => r.status == 200,
+  });
+  console.log(`Generated log entry for contadorPost at ${new Date().toISOString()}`);
   logCounter.add(1);
 
   sleep(1);

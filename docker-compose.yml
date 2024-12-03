@@ -89,6 +89,9 @@ services:
         service: app
       depends_on:
         - mysql
+      networks:
+        - isa-network
+
 
 
   mysql:
@@ -100,13 +103,13 @@ services:
 
 
   k6:
-    image: grafana/k6
-    container_name: k6
-    volumes:
-      - ./k6:/scripts
-    entrypoint: ["k6", "run", "/scripts/test.js"]
-    networks:
-      - isa-network
+      image: grafana/k6
+      container_name: k6
+      volumes:
+        - ./conf.d/k6/scripts:/scripts
+      entrypoint: ["k6", "run", "/scripts/test.js"]
+      networks:
+        - isa-network
 
   # frontend:
   #   image: frontend
