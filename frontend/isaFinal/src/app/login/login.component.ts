@@ -19,10 +19,11 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
 
-  private apiUrl = environment.url;
   private userService = inject(UsuarioService);
   private router = inject(Router);
   private alertController = inject(AlertController)
+
+  errorMessage : string | null = null;
 
   credentials = {
     username: '',
@@ -58,8 +59,13 @@ export class LoginComponent {
       }),
       catchError(error => {
         console.error('Login failed', error);
+        this.errorMessage = "Credenciales inválidas"
         return of(null);
       })
     ).subscribe();
+  }
+
+  navigateToRegister(){
+    this.router.navigate(['/register'])
   }
 }

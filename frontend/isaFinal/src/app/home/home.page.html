@@ -3,6 +3,12 @@
     <ion-title>
       Contador
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logOut()">
+        <ion-icon slot="icon-only" name="log-out" id="salir"></ion-icon>
+        Salir
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +20,7 @@
   </ion-header>
 
   <div id="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-    <h1 style="font-size: 4rem; margin-bottom: 2rem;">{{ counter }}</h1>
+    <h1 style="font-size: 4rem; margin-bottom: 2rem;" id="counter">{{ counter }}</h1>
     <ion-grid>
       <ion-row>
         <ion-col size="auto">

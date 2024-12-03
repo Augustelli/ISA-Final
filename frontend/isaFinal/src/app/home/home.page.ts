@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { catchError, tap, of } from 'rxjs';
 import { ContadorService } from 'src/service/contador.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,8 @@ export class HomePage {
 
 
   private _contadorService = inject(ContadorService)
+  private _router = inject(Router)
+
   constructor() { }
 
   modifyCounter(value: number): void {
@@ -59,6 +62,10 @@ export class HomePage {
     ).subscribe();
   }
 
+  logOut(): void{
+    localStorage.removeItem("jwt")
+    this._router.navigate(['/login'])
+  }
 
 }
 
