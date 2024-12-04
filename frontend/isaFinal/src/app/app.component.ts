@@ -4,10 +4,9 @@ import { RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  standalone: true,
-  imports: [IonicModule, RouterOutlet, HttpClientModule],
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    imports: [IonicModule, RouterOutlet, HttpClientModule]
 })
 export class AppComponent {
   constructor() {}

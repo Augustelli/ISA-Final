@@ -10,12 +10,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
-  providers : [UsuarioService]
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
+    providers: [UsuarioService]
 })
 export class LoginComponent {
 

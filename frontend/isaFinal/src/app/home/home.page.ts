@@ -8,12 +8,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
-  providers: [ContadorService]
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss'],
+    imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
+    providers: [ContadorService]
 })
 export class HomePage {
   counter: number = 0;

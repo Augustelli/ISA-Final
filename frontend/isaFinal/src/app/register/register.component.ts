@@ -9,12 +9,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
-  providers : [UsuarioService]
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
+    providers: [UsuarioService]
 })
 export class RegisterComponent implements OnInit {
 
