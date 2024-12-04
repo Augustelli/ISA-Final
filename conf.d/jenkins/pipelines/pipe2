@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = 'dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M'
+        DOCKERHUB_REPO = 'augustomancuso/ing-soft-aplicada'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Augustelli/ISA-Final.git'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    dir('backend') {
+                        sh './mvnw test'
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dir('backend') {
+                        sh './mvnw package -Pprod jib:build -Djib.to.image=augustomancuso/ing-soft-aplicada:latest -Djib.to.auth.username=augustomancuso -Djib.to.auth.password=dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M'
+                    }
+                }
+            }
+        }
+
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', 'dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M') {
+        //                 def app = docker.build("${env.DOCKERHUB_REPO}")
+        //                 app.push("${env.BUILD_NUMBER}")
+        //                 app.push("latest")
+        //             }
+        //         }
+        //     }
+        // }
+    }
+}

@@ -70,6 +70,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - isa-network
+    privileged: true
 
   portainer:
     image: portainer/portainer
