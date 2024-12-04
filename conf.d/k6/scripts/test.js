@@ -13,7 +13,7 @@ export let options = {
 };
 
 export default function () {
-  let loginRes = http.post('http://isabe:8080/api/authenticate', {
+  let loginRes = http.post('http://isa-final-isabe-1:8080/api/authenticate', {
     username: 'admin',
     password: 'admin',
     rememberMe: false
@@ -31,14 +31,14 @@ export default function () {
     },
   };
 
-  let getContadorRes = http.get('http://isabe:8080/api/getContador', headers);
+  let getContadorRes = http.get('http://isa-final-isabe-1:8080/api/getContador', headers);
   check(getContadorRes, {
     'getContador status was 200': (r) => r.status == 200,
   });
   console.log(`Generated log entry for getContador at ${new Date().toISOString()}`);
   logCounter.add(1);
 
-  let contadorPostRes = http.post('http://isabe:8080/api/contadorPost', { value: 1 }, headers);
+  let contadorPostRes = http.post('http://isa-final-isabe-1:8080/api/contadorPost', { value: 1 }, headers);
   check(contadorPostRes, {
     'contadorPost status was 200': (r) => r.status == 200,
   });

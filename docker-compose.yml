@@ -22,6 +22,7 @@ services:
       - "5044:5044"
     volumes:
       - ./conf.d/logstash/conf/logstash.conf:/usr/share/logstash/config/logstash.conf
+
     networks:
       - isa-network
 
@@ -31,7 +32,7 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_HOSTS=["http://elasticsearch:9200"]
     ports:
       - "5601:5601"
     networks:
@@ -39,21 +40,21 @@ services:
     volumes:
       - ./conf.d/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
 
-  fluentd:
-    image: bitnami/fluentd
-    container_name: fluentd
-    depends_on:
-      - elasticsearch
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.15.3
+    container_name: filebeat
     environment:
-      FLUENT_ELASTICSEARCH_HOST: elasticsearch
-      FLUENT_ELASTICSEARCH_PORT: 9200
-    ports:
-      - "24224:24224"
-      - "24224:24224/udp"
+      - ELASTICSEARCH_HOSTS=elasticsearch:9200
     volumes:
-      - ./conf.d/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - ./conf.d/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - elasticsearch
+    labels:
+      co.elastic.logs/enabled: "false"
+    networks:
+      - isa-network
 
   jenkins:
     image: jenkins/jenkins:lts-jdk17
@@ -84,6 +85,9 @@ services:
 
   isabe:
       image: jhipster/jhipster:latest
+      build:
+        context: ./backend
+        dockerfile: Dockerfile
       extends:
         file: ./backend/src/main/docker/app.yml
         service: app
@@ -110,15 +114,6 @@ services:
       entrypoint: ["k6", "run", "/scripts/test.js"]
       networks:
         - isa-network
-
-  # frontend:
-  #   image: frontend
-  #   build:
-  #     context: contextPath
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - isa-network
-
 
 volumes:
   es_data:
