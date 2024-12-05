@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+
+    parameters {
+        string(name: 'DOCKER_TAG', defaultValue: 'latest', description: 'Tag para la imágen de docker ')
+    }
     environment {
         DOCKERHUB_CREDENTIALS = 'dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M'
         DOCKERHUB_REPO = 'augustomancuso/ing-soft-aplicada'
@@ -27,22 +31,11 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        sh './mvnw package -Pprod jib:build -Djib.to.image=augustomancuso/ing-soft-aplicada:latest -Djib.to.auth.username=augustomancuso -Djib.to.auth.password=dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M'
+                        sh """./mvnw package -Pprod jib:build -Djib.to.image=augustomancuso/ing-soft-aplicada:${params.DOCKER_TAG} -Djib.to.auth.username=augustomancuso -Djib.to.auth.password=dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M"""
                     }
                 }
             }
         }
 
-        // stage('Push Docker Image') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry('https://registry.hub.docker.com', 'dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M') {
-        //                 def app = docker.build("${env.DOCKERHUB_REPO}")
-        //                 app.push("${env.BUILD_NUMBER}")
-        //                 app.push("latest")
-        //             }
-        //         }
-        //     }
-        // }
     }
 }

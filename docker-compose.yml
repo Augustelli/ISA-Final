@@ -85,10 +85,10 @@ services:
 
 
   isabe:
-      image: jhipster/jhipster:latest
-      build:
-        context: ./backend
-        dockerfile: Dockerfile
+      image: augustomancuso/ing-soft-aplicada:latest
+      # build:
+      #   context: ./backend
+      #   dockerfile: Dockerfile
       extends:
         file: ./backend/src/main/docker/app.yml
         service: app
