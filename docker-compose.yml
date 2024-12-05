@@ -21,8 +21,10 @@ services:
     ports:
       - "5044:5044"
     volumes:
-      - ./conf.d/logstash/conf/logstash.conf:/usr/share/logstash/config/logstash.conf
-
+      - ./conf.d/logstash/pipeline:/usr/share/logstash/pipeline
+      - ./conf.d/logstash/conf/logstash.yml:/usr/share/logstash/config/logstash.yml
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
       - isa-network
 
@@ -43,18 +45,19 @@ services:
   filebeat:
     image: docker.elastic.co/beats/filebeat:8.15.3
     container_name: filebeat
-    environment:
-      - ELASTICSEARCH_HOSTS=elasticsearch:9200
+    # environment:
+    #   - LOGSTASH_HOSTS=elasticsearch:9200
     volumes:
       - ./conf.d/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
-      - elasticsearch
+      - logstash
     labels:
       co.elastic.logs/enabled: "false"
     networks:
       - isa-network
+    user: root
 
   jenkins:
     image: jenkins/jenkins:lts-jdk17
