@@ -1,0 +1,16 @@
+services:
+
+  frontend:
+    image: isa-font
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "8100:80"
+    networks:
+      - isa-network
+
+networks:
+  isa-network:
+    driver: bridge  

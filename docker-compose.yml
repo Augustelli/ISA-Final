@@ -49,7 +49,7 @@ services:
     #   - LOGSTASH_HOSTS=elasticsearch:9200
     volumes:
       - ./conf.d/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro,rshared
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - logstash
@@ -100,6 +100,19 @@ services:
       networks:
         - isa-network
 
+  frontend:
+    image: isa-font
+    container_name: frontend
+    build:
+      context: ./frontend/isaFinal/
+      dockerfile: Dockerfile
+    depends_on:
+      - isabe
+    networks:
+      - isa-network
+    ports:
+      - "8100:80"
+    # entrypoint: ["nginx", "-g", "daemon off;"]
 
 
   mysql:
@@ -110,14 +123,14 @@ services:
       - isa-network
 
 
-  k6:
-      image: grafana/k6
-      container_name: k6
-      volumes:
-        - ./conf.d/k6/scripts:/scripts
-      entrypoint: ["k6", "run", "/scripts/test.js"]
-      networks:
-        - isa-network
+  # k6:
+  #     image: grafana/k6
+  #     container_name: k6
+  #     volumes:
+  #       - ./conf.d/k6/scripts:/scripts
+  #     entrypoint: ["k6", "run", "/scripts/test.js"]
+  #     networks:
+  #       - isa-network
 
 volumes:
   es_data:

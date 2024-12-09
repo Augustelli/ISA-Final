@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+
+    parameters {
+        string(name: 'DOCKER_TAG_FE', defaultValue: 'latest-fe', description: 'Tag para la imágen de docker ')
+    }
+
+    environment {
+        DOCKERHUB_CREDENTIALS = 'dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M'
+        DOCKERHUB_REPO = 'augustomancuso/ing-soft-aplicada'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Augustelli/ISA-Final.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    dockerImage = docker.build("augustomancuso/ing-soft-aplicada:${params.DOCKER_TAG_FE}", "frontend/isaFinal")
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dckr_pat_0uvAAklzwNLdBRYMEsybJVosQ7M') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Clean Up') {
+            steps {
+                script {
+                    dockerImage.remove()
+                }
+            }
+        }
+    }
+
+}
